@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">MyFashionClient</string>
+    <string name="login_button">Login</string>
+    <string name="welcome">Добро пожаловать, войдите для того чтобы получить доступ к магазину</string>
+    <string name="unknown_response">Неизвестный запрос</string>
+    <string name="authentication">Aутентификация</string>
+    <string name="sign_in_failed">Ошибка входа</string>
+    <string name="user_profile">Welcome to your profile page</string>
+    <string name="profile_title">User Profile</string>
+    <string name="user_name">Inducesmile</string>
+    <string name="logout">LOGOUT</string>
+    <string name="delete_user">DELETE USER</string>
+    <string name="sign_out_error">Failed to sign out</string>
+    <string name="user_deletion_error">Failed to delete user</string>
+    <string name="my_profile">Мой Профиль</string>
+    <string name="store">Магазин</string>
+    <string name="basket">Корзинка</string>
+    <string name="other">Другое</string>
+    <string name="exit">Выход</string>
+    <string name="search">Поиск</string>
+    <string name="subtitle_money">Ваш счет: %1$s UAH</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_buy">Купить</string>
+    <string name="action_add_to_basket">В корзинку</string>
+    <string name="title_balance">Выбирите сумму пополнения</string>
+</resources>

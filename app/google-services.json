@@ -1,0 +1,275 @@
+{
+  "project_info": {
+    "project_number": "128110280525",
+    "firebase_url": "https://fashion-9c484.firebaseio.com",
+    "project_id": "fashion-9c484",
+    "storage_bucket": "fashion-9c484.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128110280525:android:71003e4d372b8e3c",
+        "android_client_info": {
+          "package_name": "com.oleg.fashion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "128110280525-rj8kip49793r1tkto7eonstbe5efptmp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.oleg.fashion",
+            "certificate_hash": "bc0e280b7076b1ea1c7ede6484e0626a137d4b44"
+          }
+        },
+        {
+          "client_id": "128110280525-jqucmbjl4klbj0r3uiuh737inbg2kj03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuMKMjM0G_VwxiEy6ToYWs8Q7mBW8tyKQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "128110280525-jqucmbjl4klbj0r3uiuh737inbg2kj03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128110280525:android:77b3611327f4b9b2",
+        "android_client_info": {
+          "package_name": "com.oleg.fashionapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "128110280525-3hk8pg4frml9l9i90vfpkg6memjvnnr7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.oleg.fashionapp",
+            "certificate_hash": "bc0e280b7076b1ea1c7ede6484e0626a137d4b44"
+          }
+        },
+        {
+          "client_id": "128110280525-jqucmbjl4klbj0r3uiuh737inbg2kj03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuMKMjM0G_VwxiEy6ToYWs8Q7mBW8tyKQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "128110280525-jqucmbjl4klbj0r3uiuh737inbg2kj03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128110280525:android:fc2b00679676eb79",
+        "android_client_info": {
+          "package_name": "com.oleg.fashionclient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "128110280525-90qb02a8lodsfai7slsbauff5uvmc4pa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.oleg.fashionclient",
+            "certificate_hash": "bc0e280b7076b1ea1c7ede6484e0626a137d4b44"
+          }
+        },
+        {
+          "client_id": "128110280525-jqucmbjl4klbj0r3uiuh737inbg2kj03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuMKMjM0G_VwxiEy6ToYWs8Q7mBW8tyKQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "128110280525-jqucmbjl4klbj0r3uiuh737inbg2kj03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128110280525:android:d5126d6091a40ad2",
+        "android_client_info": {
+          "package_name": "com.oleg.fashionclothes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "128110280525-ac41g8n2v950j5jgecb5fje5q32n59is.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.oleg.fashionclothes",
+            "certificate_hash": "bc0e280b7076b1ea1c7ede6484e0626a137d4b44"
+          }
+        },
+        {
+          "client_id": "128110280525-jqucmbjl4klbj0r3uiuh737inbg2kj03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuMKMjM0G_VwxiEy6ToYWs8Q7mBW8tyKQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "128110280525-jqucmbjl4klbj0r3uiuh737inbg2kj03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128110280525:android:42b17823363b68b6",
+        "android_client_info": {
+          "package_name": "com.oleg.myfashionapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "128110280525-k83b5khf67ooq4shpiccjapsd3qm7pv1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.oleg.myfashionapp",
+            "certificate_hash": "bc0e280b7076b1ea1c7ede6484e0626a137d4b44"
+          }
+        },
+        {
+          "client_id": "128110280525-jqucmbjl4klbj0r3uiuh737inbg2kj03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuMKMjM0G_VwxiEy6ToYWs8Q7mBW8tyKQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "128110280525-jqucmbjl4klbj0r3uiuh737inbg2kj03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128110280525:android:a6a83b1e2146272e",
+        "android_client_info": {
+          "package_name": "com.oleg.myfashionclient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "128110280525-dtihlm2ca2adbm9qsbeslabs0oiti3d7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.oleg.myfashionclient",
+            "certificate_hash": "bc0e280b7076b1ea1c7ede6484e0626a137d4b44"
+          }
+        },
+        {
+          "client_id": "128110280525-jqucmbjl4klbj0r3uiuh737inbg2kj03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuMKMjM0G_VwxiEy6ToYWs8Q7mBW8tyKQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "128110280525-jqucmbjl4klbj0r3uiuh737inbg2kj03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
