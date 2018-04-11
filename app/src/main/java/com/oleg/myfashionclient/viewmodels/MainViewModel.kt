@@ -8,6 +8,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Transaction
+import com.oleg.myfashionclient.common.adapter.BasketProductAdapter
+import com.oleg.myfashionclient.common.adapter.BuyProductAdapter
 import com.oleg.myfashionclient.common.adapter.MainProductAdapter
 import com.oleg.myfashionclient.model.ActionType
 import com.oleg.myfashionclient.model.StoreData
@@ -40,20 +42,42 @@ interface IProduct: IAll{
     fun loadData(key: String)
 }
 interface IBasket: IAll{
-
+    fun loadBasketAdapter(adapter: BasketProductAdapter)
 }
 interface  IBuy: IAll{
-    fun loadBasketAdapter()
+    fun loadBuyAdapter(adapter: BuyProductAdapter)
 }
 class MainViewModel(application: Application,
                     var firebaseFirestore: FirebaseFirestore,
                     var firebaseAuth: FirebaseAuth
 ) : AndroidViewModel(application), IAllProducts, IAvailableProducts, IAll, IMain, IProduct, IBasket, IBuy {
-    override fun loadBasketAdapter() {
+    override fun loadBasketAdapter(adapter: BasketProductAdapter) {
+        firebaseFirestore.collection("users").document("${firebaseAuth.currentUser?.uid}").get().addOnCompleteListener({
+            t->
+            val k =  t.result.toObject(User::class.java)
+            var mas = k.shop_cart
+            for(i: Int in mas?.indices!!){
+                firebaseFirestore.collection("products_2").document(mas[i]).get().addOnCompleteListener {
+                    task ->
+                    var data = task.result.toObject(StoreData::class.java)
+                    adapter.addBasketProduct(data)
+                }
+            }
+        })
+    }
+
+    override fun loadBuyAdapter(adapter: BuyProductAdapter) {
         val query = firebaseFirestore.collection("users").document("${firebaseAuth.currentUser?.uid}").get().addOnCompleteListener({
             t->
             val k =  t.result.toObject(User::class.java)
-            Log.d("myLogs","$k")
+            var mas = k.personal_effects
+            for(i: Int in mas?.indices!!){
+                firebaseFirestore.collection("products_2").document(mas[i]).get().addOnCompleteListener {
+                    task ->
+                    var data = task.result.toObject(StoreData::class.java)
+                    adapter.addProduct(data)
+                }
+            }
         })
     }
 
@@ -107,8 +131,17 @@ class MainViewModel(application: Application,
 
             var money = user.getLong("money")- storeData.price?.toInt()!!
             var productCount = product.getLong("count")-1
-            var userProductMas = user.data.get("personal_effects") as MutableList<String>
+            var userProductMas = user.data["personal_effects"] as MutableList<String>
+            var userShopCart = user.data["shop_cart"] as MutableList<String>
 
+            var list = mutableListOf<String>()
+            for(i: Int in 0 until  userShopCart.size){
+                if(storeData.key == userShopCart[i]){
+                    continue
+                }
+                list.add(userShopCart[i])
+            }
+            transaction.update(docUser,"shop_cart",list)
             userProductMas.add(storeData.key!!)
             transaction.update(docUser,"money",money)
             transaction.update(docProd,"count",productCount)

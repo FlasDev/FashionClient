@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.oleg.myfashionclient.R
+import com.oleg.myfashionclient.common.adapter.BuyProductAdapter
 import com.oleg.myfashionclient.ui.BaseFragment
 import com.oleg.myfashionclient.viewmodels.IBuy
 import com.oleg.myfashionclient.viewmodels.MainViewModel
@@ -34,8 +35,12 @@ class BuyFragment : BaseFragment() {
     }
 
     private fun setRecyclerView(recyc: RecyclerView) {
-        vm.loadBasketAdapter()
+
         recyc.layoutManager = LinearLayoutManager(context!!)
+        val adapter = BuyProductAdapter()
+        recyc.adapter = adapter
+        vm.loadBuyAdapter(adapter)
+
     }
 
     companion object {
