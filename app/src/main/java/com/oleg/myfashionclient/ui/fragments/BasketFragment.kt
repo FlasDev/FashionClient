@@ -3,14 +3,15 @@ package com.oleg.myfashionclient.ui.fragments
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout.HORIZONTAL
 import com.oleg.myfashionclient.R
-import com.oleg.myfashionclient.common.adapter.BasketProductAdapter
-import com.oleg.myfashionclient.model.ActionType
 import com.oleg.myfashionclient.ui.BaseFragment
 import com.oleg.myfashionclient.viewmodels.IBasket
 import com.oleg.myfashionclient.viewmodels.MainViewModel
@@ -40,11 +41,15 @@ class BasketFragment : BaseFragment() {
 
     private fun setRecyclerView(recycler: RecyclerView) {
         recycler.layoutManager = LinearLayoutManager(context!!)
-        val adapter = BasketProductAdapter()
+        val divider = DividerItemDecoration(context!!,HORIZONTAL)
+        val adapter = vm.getBasketAdapter(this)
+        recycler.addItemDecoration(divider)
         recycler.adapter = adapter
-        vm.loadBasketAdapter(adapter)
-        adapter.clickEventBuy.subscribe({t->
-            vm.buyProduct(t, ActionType.BUY)
+        adapter.clickEventBuy.subscribe({
+
+            store->
+            Log.d("myLogs","buy click")
+            vm.addToBuy(store)
         })
     }
 

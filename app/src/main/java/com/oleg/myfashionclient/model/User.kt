@@ -6,6 +6,7 @@ package com.oleg.myfashionclient.model
 data class User(
         var name: String? = null,
         var money: Long? = null,
+        var address: String? = null,
         var shop_cart: List<String>? = null,
         var personal_effects: List<String>? = null
 )

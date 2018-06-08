@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:background="@color/colorPrimary"
         android:layout_height="80dp"
-        android:text="Купить"
+        android:text="Заказать"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true" />

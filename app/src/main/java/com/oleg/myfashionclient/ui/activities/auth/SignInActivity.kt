@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
@@ -26,10 +27,11 @@ class SignInActivity : BaseActivity() {
         setContentView(R.layout.activity_sign_in)
         var auth = FirebaseAuth.getInstance().currentUser
         if(auth!=null){
-
            FirebaseFirestore.getInstance().collection("users").document(auth.uid).get().addOnCompleteListener {
                task ->
+               Log.d("myLogs","tet")
                if(!task.result.exists()){
+                   Log.d("myLogs","tyt")
                    var user = User(auth.displayName,0)
                    FirebaseFirestore.getInstance().collection("users").document(auth.uid).set(user)
                }

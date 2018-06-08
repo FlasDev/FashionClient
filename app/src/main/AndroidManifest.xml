@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".ui.activities.main.BasketActivity" />
         <activity android:name=".ui.activities.main.MainActivity" />
-        <activity android:name=".ui.activities.main.ProductActivity"></activity>
+        <activity android:name=".ui.activities.main.ProductActivity" />
+        <activity android:name=".ui.activities.main.ProfileActivity"></activity>
     </application>
 
 </manifest>

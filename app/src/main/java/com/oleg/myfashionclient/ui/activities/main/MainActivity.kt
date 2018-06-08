@@ -127,7 +127,7 @@ class MainActivity : BaseActivity() {
                                     }
 
                         R.id.nav_draw_store_basket-> startActivity(BasketActivity.newIntent(this))
-
+                        R.id.nav_draw_profile-> startActivity(ProfileActivity.newIntent(this))
                     }
                 })
 

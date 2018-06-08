@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import com.oleg.myfashionclient.model.ActionType
 import com.oleg.myfashionclient.model.StoreData
 import com.oleg.myfashionclient.ui.BaseFragment
 import com.oleg.myfashionclient.ui.activities.main.ProductActivity
-import com.oleg.myfashionclient.ui.view.showBuyDialog
 import com.oleg.myfashionclient.viewmodels.IAllProducts
 import com.oleg.myfashionclient.viewmodels.MainViewModel
 import com.oleg.myfashionclient.viewmodels.MainViewModelFactory
@@ -51,7 +49,7 @@ class AllProductsFragment : BaseFragment() {
         recycler.layoutManager = LinearLayoutManager(context)
         var adapter = vm.getAllProductAdapter(this)
         recycler.adapter = adapter
-        adapter.clickEventBuy
+        /*adapter.clickEventBuy
                 .compose(bindUntilEvent(FragmentEvent.DESTROY))
                 .subscribe({storeData: StoreData? ->
                     showBuyDialog(context!!, storeData!!)
@@ -64,10 +62,11 @@ class AllProductsFragment : BaseFragment() {
                                     displayMessage("Недостаточно средств или товара нету в налачии")
                                 }
                             })
-                })
+                })*/
         adapter.clickEventAddBasket
                 .compose(bindUntilEvent(FragmentEvent.DESTROY))
                 .subscribe({storeData: StoreData? ->
+                    displayMessage("Добавленно в корзинку")
                     vm.addToBasketProduct(storeData, ActionType.ADD_TO_BASKET)})
 
         adapter.clickEventItemView

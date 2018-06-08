@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
+
 import com.oleg.myfashionclient.R
 import com.oleg.myfashionclient.common.adapter.MainProductAdapter
 import com.oleg.myfashionclient.model.StoreData
@@ -18,15 +19,11 @@ class MainProductViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
     private var mainProductAdapter: MainProductAdapter? = null
     private var storeData: StoreData? = null
     init {
-        var buttonBuy = itemView?.findViewById<Button>(R.id.store_action_buy)
-        buttonBuy?.setOnClickListener {
-            mainProductAdapter?.clickSubjectBuy?.onNext(storeData!!)
-        }
-
         var buttonAddToBasket = itemView?.findViewById<Button>(R.id.store_action_add_to_basket)
         buttonAddToBasket?.setOnClickListener {
             mainProductAdapter?.clickSubjectAddBasket?.onNext(storeData!!)
         }
+
 
         itemView?.setOnClickListener({
             mainProductAdapter?.clickSubjectItemView?.onNext(storeData!!)

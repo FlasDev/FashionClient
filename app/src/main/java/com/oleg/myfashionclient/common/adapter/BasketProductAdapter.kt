@@ -1,32 +1,28 @@
 package com.oleg.myfashionclient.common.adapter
 
-import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.oleg.myfashionclient.R
 import com.oleg.myfashionclient.common.viewholder.BasketProductViewHolder
-import com.oleg.myfashionclient.model.StoreData
+import com.oleg.myfashionclient.model.ShopCart
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
-class BasketProductAdapter: RecyclerView.Adapter<BasketProductViewHolder>() {
-    val product: MutableList<StoreData> = mutableListOf()
+class BasketProductAdapter(options: FirestoreRecyclerOptions<ShopCart>) : FirestoreRecyclerAdapter<ShopCart, BasketProductViewHolder>(options) {
 
-    val clickSubjectBuy = PublishSubject.create<StoreData>()
-    val clickEventBuy: Observable<StoreData> = clickSubjectBuy
+    val clickSubjectBuy = PublishSubject.create<ShopCart>()
+    val clickEventBuy: Observable<ShopCart> = clickSubjectBuy
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BasketProductViewHolder {
+        Log.d("myLogs","тут")
         return BasketProductViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.product_item_basket,parent,false))
     }
 
-    override fun getItemCount(): Int =  product.size
-
-    override fun onBindViewHolder(holder: BasketProductViewHolder?, position: Int) {
-        holder?.bindProduct(product[position],this)
-    }
-
-    fun addBasketProduct(storeData: StoreData){
-        product.add(storeData)
-        notifyDataSetChanged()
+    override fun onBindViewHolder(holder: BasketProductViewHolder, position: Int, model: ShopCart) {
+        Log.d("myLogs","$model")
+        holder.bindProduct(model,this)
     }
 }

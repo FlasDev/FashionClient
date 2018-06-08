@@ -12,10 +12,12 @@ import com.oleg.myfashionclient.common.adapter.BasketProductAdapter
 import com.oleg.myfashionclient.common.adapter.BuyProductAdapter
 import com.oleg.myfashionclient.common.adapter.MainProductAdapter
 import com.oleg.myfashionclient.model.ActionType
+import com.oleg.myfashionclient.model.ShopCart
 import com.oleg.myfashionclient.model.StoreData
 import com.oleg.myfashionclient.model.User
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import java.util.*
 
 /**
  * Created by oleg on 27.03.2018.
@@ -43,15 +45,57 @@ interface IProduct: IAll{
 }
 interface IBasket: IAll{
     fun loadBasketAdapter(adapter: BasketProductAdapter)
+    fun getBasketAdapter(owner: LifecycleOwner): BasketProductAdapter
+    fun addToBuy(shopCart: ShopCart)
 }
-interface  IBuy: IAll{
+interface IBuy: IAll{
     fun loadBuyAdapter(adapter: BuyProductAdapter)
+    fun getBuyAdapter(owner: LifecycleOwner): BuyProductAdapter
+}
+
+interface IProfile{
+
 }
 class MainViewModel(application: Application,
                     var firebaseFirestore: FirebaseFirestore,
                     var firebaseAuth: FirebaseAuth
-) : AndroidViewModel(application), IAllProducts, IAvailableProducts, IAll, IMain, IProduct, IBasket, IBuy {
+) : AndroidViewModel(application), IAllProducts, IAvailableProducts, IAll, IMain, IProduct, IBasket, IBuy,IProfile {
+    override fun getBuyAdapter(owner: LifecycleOwner): BuyProductAdapter {
+        val query = firebaseFirestore.collection("shop_cart").whereEqualTo("buying",true)
+
+        val options = FirestoreRecyclerOptions.Builder<ShopCart>()
+                .setQuery(query,ShopCart::class.java)
+                .setLifecycleOwner(owner)
+                .build()
+
+        return BuyProductAdapter(options)
+    }
+
+    override fun addToBuy(shopCart: ShopCart) {
+        val docShop = firebaseFirestore.collection("shop_cart").document(shopCart.id_order!!)
+        val docProd = firebaseFirestore.collection("products_2").document(shopCart.id_product!!)
+        val docUser = firebaseFirestore.collection("users").document(shopCart.id_user!!)
+        firebaseFirestore.runTransaction { transaction: Transaction ->
+            Log.d("myLogs","$transaction")
+            val user = transaction.get(docUser)
+            val product = transaction.get(docProd)
+            Log.d("myLogs","гы ${shopCart.price?.split(" ")!![0].toInt()}")
+            var money = user.getLong("money")- shopCart.price?.split(" ")!![0].toInt()
+            Log.d("myLogs","$money")
+            var productCount = product.getLong("count")-1
+            transaction.update(docUser,"money",money)
+            Log.d("myLogs","$money")
+            transaction.update(docProd,"count",productCount)
+            Log.d("myLogs","$productCount")
+            transaction.update(docShop,"buying",true)
+            Log.d("myLogs","здес")
+        }
+    }
+
     override fun loadBasketAdapter(adapter: BasketProductAdapter) {
+        firebaseFirestore.collection("shop_cart").whereEqualTo("id_user",firebaseAuth.currentUser?.uid).addSnapshotListener({
+            t1,t2->
+        })
         firebaseFirestore.collection("users").document("${firebaseAuth.currentUser?.uid}").get().addOnCompleteListener({
             t->
             val k =  t.result.toObject(User::class.java)
@@ -60,7 +104,7 @@ class MainViewModel(application: Application,
                 firebaseFirestore.collection("products_2").document(mas[i]).get().addOnCompleteListener {
                     task ->
                     var data = task.result.toObject(StoreData::class.java)
-                    adapter.addBasketProduct(data)
+                    //adapter.addBasketProduct(data)
                 }
             }
         })
@@ -75,7 +119,7 @@ class MainViewModel(application: Application,
                 firebaseFirestore.collection("products_2").document(mas[i]).get().addOnCompleteListener {
                     task ->
                     var data = task.result.toObject(StoreData::class.java)
-                    adapter.addProduct(data)
+                    //adapter.addProduct(data)
                 }
             }
         })
@@ -108,7 +152,6 @@ class MainViewModel(application: Application,
         var docBal = firebaseFirestore.collection("users").document(firebaseAuth.currentUser?.uid!!)
         firebaseFirestore.runTransaction { transaction ->
             var bal = transaction.get(docBal)
-
             var myBalance = bal.getLong("money")+num
             transaction.update(docBal,"money",myBalance)
         }
@@ -154,14 +197,26 @@ class MainViewModel(application: Application,
     }
 
     override fun addToBasketProduct(storeData: StoreData?, type: ActionType) {
-        var docUser = firebaseFirestore.collection("users").document(firebaseAuth.currentUser?.uid!!)
+        val docUser = firebaseFirestore.collection("users").document(firebaseAuth.currentUser?.uid!!)
 
         firebaseFirestore.runTransaction { transaction: Transaction ->
-            var user = transaction.get(docUser)
+            val idOrder = "s-"+UUID.randomUUID()
+            val shopCart = ShopCart(idOrder, firebaseAuth.currentUser?.uid!!,
+                    storeData?.key!!,
+                    Date(),
+                    true,
+                    false,
+                    false,
+                    storeData.picture!![0],
+                    storeData.name+" "+storeData.products_type,
+                    storeData.price+" "+storeData.currencyId
+                    )
+            firebaseFirestore.collection("shop_cart").document(idOrder).set(shopCart)
+            val user = transaction.get(docUser)
 
-            var userShopCart = user.data.get("shop_cart") as MutableList<String>
+            val userShopCart = user.data["shop_cart"] as MutableList<String>
 
-            userShopCart.add(storeData?.key!!)
+            userShopCart.add(idOrder)
             transaction.update(docUser, "shop_cart", userShopCart)
         }.addOnSuccessListener {
             Log.d("myLogs","successs")
@@ -187,5 +242,17 @@ class MainViewModel(application: Application,
                 .setLifecycleOwner(owner)
                 .build()
         return MainProductAdapter(options)
+    }
+
+    override fun getBasketAdapter(owner: LifecycleOwner): BasketProductAdapter{
+        val query = firebaseFirestore.collection("shop_cart").whereEqualTo("buying",false)
+        Log.d("myLogs","$query")
+        val options = FirestoreRecyclerOptions.Builder<ShopCart>()
+                .setQuery(query,ShopCart::class.java)
+                .setLifecycleOwner(owner)
+                .build()
+        Log.d("myLogs","$options")
+
+        return BasketProductAdapter(options)
     }
 }

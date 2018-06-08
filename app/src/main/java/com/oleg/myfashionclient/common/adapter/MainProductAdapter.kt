@@ -14,8 +14,6 @@ import io.reactivex.subjects.PublishSubject
  * Created by oleg on 27.03.2018.
  */
 class MainProductAdapter(options: FirestoreRecyclerOptions<StoreData>) : FirestoreRecyclerAdapter<StoreData, MainProductViewHolder>(options) {
-    val clickSubjectBuy = PublishSubject.create<StoreData>()
-    val clickEventBuy: Observable<StoreData> = clickSubjectBuy
 
     val clickSubjectAddBasket = PublishSubject.create<StoreData>()
     val clickEventAddBasket: Observable<StoreData> = clickSubjectAddBasket

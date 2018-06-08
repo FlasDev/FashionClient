@@ -4,6 +4,7 @@ import com.oleg.myfashionclient.ui.activities.auth.SignInActivity
 import com.oleg.myfashionclient.ui.activities.main.BasketActivity
 import com.oleg.myfashionclient.ui.activities.main.MainActivity
 import com.oleg.myfashionclient.ui.activities.main.ProductActivity
+import com.oleg.myfashionclient.ui.activities.main.ProfileActivity
 import com.oleg.myfashionclient.ui.fragments.AllProductsFragment
 import com.oleg.myfashionclient.ui.fragments.AvailableProductsFragment
 import com.oleg.myfashionclient.ui.fragments.BasketFragment
@@ -40,5 +41,8 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     abstract fun provideBasketFragment(): BasketFragment
+
+    @ContributesAndroidInjector
+    abstract fun provideProfileActivity(): ProfileActivity
 
 }
