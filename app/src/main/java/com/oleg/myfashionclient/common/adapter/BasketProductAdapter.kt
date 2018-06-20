@@ -1,6 +1,5 @@
 package com.oleg.myfashionclient.common.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
@@ -16,13 +15,18 @@ class BasketProductAdapter(options: FirestoreRecyclerOptions<ShopCart>) : Firest
     val clickSubjectBuy = PublishSubject.create<ShopCart>()
     val clickEventBuy: Observable<ShopCart> = clickSubjectBuy
 
+    val clickSubjectDelete = PublishSubject.create<ShopCart>()
+    val clickEventDelete: Observable<ShopCart> = clickSubjectDelete
+
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BasketProductViewHolder {
-        Log.d("myLogs","тут")
         return BasketProductViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.product_item_basket,parent,false))
     }
 
     override fun onBindViewHolder(holder: BasketProductViewHolder, position: Int, model: ShopCart) {
-        Log.d("myLogs","$model")
         holder.bindProduct(model,this)
+    }
+
+    override fun getItemCount(): Int {
+            return super.getItemCount()
     }
 }

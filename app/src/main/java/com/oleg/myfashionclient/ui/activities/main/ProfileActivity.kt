@@ -4,13 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.Menu
+import android.widget.ImageView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Transaction
 import com.jakewharton.rxbinding2.support.v7.widget.RxToolbar
 import com.jakewharton.rxbinding2.view.RxMenuItem
+import com.jakewharton.rxbinding2.view.RxView
 import com.oleg.myfashionclient.R
 import com.oleg.myfashionclient.ui.BaseActivity
 import com.oleg.myfashionclient.viewmodels.MainViewModelFactory
@@ -29,12 +29,44 @@ class ProfileActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.app_bar_profile)
+        setClick(false)
         initUI()
     }
 
     private fun initUI() {
         setToolbar(toolbar)
         setTextLine()
+        setEditButton(profile_edit)
+    }
+
+    private fun setEditButton(imageView: ImageView) {
+        RxView.clicks(imageView)
+                .compose(bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe({
+                    setClick(true)
+                })
+    }
+
+    private fun save(){
+        setClick(false)
+        val firebaseFirestore = FirebaseFirestore.getInstance()
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val mas = mutableMapOf<String, Any>()
+        mas.put("name",profile_name.text.toString())
+        mas.put("address",profile_address.text.toString())
+        firebaseFirestore.collection("users").document(firebaseAuth.currentUser?.uid!!).update(mas)
+    }
+
+    private fun setClick(boolean: Boolean)
+    {
+        profile_address.isEnabled = boolean
+        profile_address.isClickable = boolean
+        profile_address.isCursorVisible = boolean
+
+        profile_mobile.isClickable = boolean
+        profile_mobile.isCursorVisible = boolean
+        profile_mobile.isEnabled = boolean
+
     }
 
     private fun setTextLine() {
@@ -42,11 +74,14 @@ class ProfileActivity : BaseActivity() {
         val firebaseAuth = FirebaseAuth.getInstance()
         firebaseFirestore.collection("users").document(firebaseAuth.currentUser?.uid!!).addSnapshotListener({
             t1,t2->
-            profile_edit_name.setText(t1.data["name"].toString())
+            profile_name.text = t1.data["name"].toString()
             if(t1.data.containsKey("address")) {
-                profile_edit_address.setText(t1.data["address"].toString())
+               profile_address.setText(t1.data["address"].toString())
             }
-            profile_edit_mail.setText(firebaseAuth.currentUser?.email)
+            if(t1.data.containsKey("mobile")){
+                profile_mobile.setText(t1.data["mobile"].toString())
+            }
+            profile_email.setText(firebaseAuth.currentUser?.email)
         })
     }
 
@@ -62,31 +97,18 @@ class ProfileActivity : BaseActivity() {
                 .subscribe({onBackPressed()})
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_profile,menu)
-
-        val firebaseFirestore = FirebaseFirestore.getInstance()
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val docUser = firebaseFirestore.collection("users").document(firebaseAuth.currentUser?.uid!!)
         RxMenuItem.clicks(menu?.findItem(R.id.menu_profile_done)!!)
                 .compose(bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe({
-                    Log.d("myLogs","runTransaction")
-                    firebaseFirestore.runTransaction({transaction: Transaction ->
-                        val user = transaction.get(docUser)
-                        val name = profile_edit_name.text
-                        val address = profile_edit_address.text
-                        Log.d("myLogs","$address")
-                        val map = HashMap<String, Any>()
-                        map.put("address",address.toString())
-                        transaction.update(docUser,"address",address.toString())
-                        transaction.update(docUser,"name",name.toString())
-                    })
+                .subscribe({save()
                 })
         return true
     }
 
     companion object {
+        val firestClick = "One"
+        val secondClick = "Two"
         fun newIntent(packageContext: Context): Intent {
             val intent = Intent(packageContext, ProfileActivity::class.java)
             return intent

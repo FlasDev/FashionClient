@@ -8,7 +8,7 @@ data class ShopCart (
         var id_product: String? = null,
         var date: Date? = null,
         var inBasket: Boolean = false,
-        var isBuying: Boolean = false,
+        var buying: Boolean = false,
         var isDeleted: Boolean = true,
         var picture: String? = null,
         var name: String? = null,

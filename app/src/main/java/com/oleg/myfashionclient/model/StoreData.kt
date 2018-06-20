@@ -7,6 +7,7 @@ data class StoreData(
         var id: Long? =null,
         var category: String? = null,
         var color: String? = null,
+        var name_type: String? = null,
         var currencyId: String? = null,
         var description: String? = null,
         var model: String? = null,

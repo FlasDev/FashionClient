@@ -28,6 +28,10 @@
     <string name="title_balance">Выбирите сумму пополнения</string>
     <string name="name">Имя</string>
     <string name="mail">Почта</string>
-    <string name="address">Адрес</string>
     <string name="save">Сохранить</string>
+    <string name="hint_search">Поиск</string>
+    <string name="delete_all_basket">Очистить корзинку</string>
+    <string name="email">Почта</string>
+    <string name="mobile">Мобильный телефон</string>
+    <string name="address">Адрес</string>
 </resources>

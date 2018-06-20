@@ -49,6 +49,7 @@ class SignInActivity : BaseActivity() {
         RxView.clicks(login_button)
                 .compose(bindUntilEvent(DESTROY))
                 .subscribe({
+                    Log.d("myLogs","тут $RC_SIGN_IN")
                     startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
                             .setTosUrl(PATH_TOS)
                             .build(),RC_SIGN_IN)
@@ -64,6 +65,7 @@ class SignInActivity : BaseActivity() {
         }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Log.d("myLogs","$requestCode")
         if(requestCode == RC_SIGN_IN){
             if(resultCode == Activity.RESULT_OK){
                 loginUser()

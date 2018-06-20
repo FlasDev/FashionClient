@@ -5,10 +5,7 @@ import com.oleg.myfashionclient.ui.activities.main.BasketActivity
 import com.oleg.myfashionclient.ui.activities.main.MainActivity
 import com.oleg.myfashionclient.ui.activities.main.ProductActivity
 import com.oleg.myfashionclient.ui.activities.main.ProfileActivity
-import com.oleg.myfashionclient.ui.fragments.AllProductsFragment
-import com.oleg.myfashionclient.ui.fragments.AvailableProductsFragment
-import com.oleg.myfashionclient.ui.fragments.BasketFragment
-import com.oleg.myfashionclient.ui.fragments.BuyFragment
+import com.oleg.myfashionclient.ui.fragments.*
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -44,5 +41,8 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     abstract fun provideProfileActivity(): ProfileActivity
+
+    @ContributesAndroidInjector
+    abstract fun provideSearchFragment(): SearchFragment
 
 }

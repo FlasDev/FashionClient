@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.oleg.myfashionclient.R
@@ -17,15 +18,28 @@ class BasketProductViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemVie
     var store: ShopCart? = null
 
     init {
-        itemView?.findViewById<Button>(R.id.action_basket_buy)?.setOnClickListener {
-            Log.d("myLogs","click")
+        val butCan = itemView?.findViewById<ImageButton>(R.id.action_delete_from_basket)
+        val butBuy = itemView?.findViewById<Button>(R.id.action_basket_buy)
+
+        butBuy?.setOnClickListener {
             adapter?.clickSubjectBuy?.onNext(store!!)
+        }
+        butCan?.setOnClickListener{
+            adapter?.clickSubjectDelete?.onNext(store!!)
+
         }
     }
 
     @SuppressLint("SetTextI18n")
     fun bindProduct(store: ShopCart, basketProductAdapter: BasketProductAdapter){
-        Log.d("myLogs","$store")
+        val butCan = itemView?.findViewById<ImageButton>(R.id.action_delete_from_basket)
+        val butBuy = itemView?.findViewById<Button>(R.id.action_basket_buy)
+        Log.d("myLogs","ожидание ${store?.buying}")
+        if(store.buying == true){
+            butBuy?.text = "Ожидание"
+            butBuy?.isEnabled = false
+            butCan?.isEnabled = false
+        }
         this.store = store
         this.adapter = basketProductAdapter
         Picasso.get()
